@@ -17,6 +17,8 @@ dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-web'
   developmentOnly 'org.springframework.boot:spring-boot-devtools'
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  // https://mvnrepository.com/artifact/org.apache.commons/commons-csv
+  compile 'org.apache.commons:commons-csv:1.8'
 }
 
 test {
