@@ -19,16 +19,17 @@ import java.util.List;
 @Service
 public class VirusDataService {
 
-  private final static String VIRUS_DATASOURCE_URL = "https://raw.githubusercontent" +
+  private static final String VIRUS_DATASOURCE_URL = "https://raw.githubusercontent" +
     ".com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv";
 
   private List<Location> allStats = new ArrayList<>();
 
-  //  fetch the data
+  //  fetch the data first
   @PostConstruct
   //  run on a schedule cron (every twelve hours)
   @Scheduled(cron = "0 0 */12 ? * *")
   public void fetchVirusData() throws IOException, InterruptedException {
+
     List<Location> newStats = new ArrayList<>();
 
     HttpClient client = HttpClient.newHttpClient();
@@ -45,7 +46,6 @@ public class VirusDataService {
       location.setState(record.get("Province/State"));
       location.setCountry(record.get("Country/Region"));
       location.setLatestTotalCases(Integer.parseInt(record.get(record.size() - 1)));
-      System.out.println(location);
       newStats.add(location);
     }
 
